@@ -77,11 +77,17 @@
 	import './../assets/css/base.css';
 	import "../assets/css/product.css";
 	import "../assets/css/login.css";
-	import NavHeader from '../components/NavHeader.vue';
-	import NavBread from '../components/NavBread.vue';
-	import NavFooter from '../components/NavFooter.vue';
-	import Modal from '../components/Modal'
+	//import NavHeader from '../components/NavHeader.vue';
+	//import NavBread from '../components/NavBread.vue';
+	//import NavFooter from '../components/NavFooter.vue';
+	//import Modal from '../components/Modal'
 	import axios from 'axios';
+
+	const Modal = () => import('@/components/Modal');
+	const NavBread = () => import('@/components/NavBread');
+	const NavHeader = () => import('@/components/NavHeader');
+	const NavFooter = () => import('@/components/NavFooter');
+
 	export default {
 		data() {
 			return {
@@ -128,7 +134,7 @@
 					sort: this.sortFlag?1:-1,
 					priceLevel: this.priceChecked
 				};
-				axios.get('/goods/list', {params:param}).then((result) => {
+				axios.get(process.env.API_HOST + '/goods/list', {params:param}).then((result) => {
 					let res = result.data;
 					if(res.status == "0"){
 						if(flag){
@@ -175,7 +181,7 @@
 				},500);
 			},
 			addCart(productId){
-				axios.post('/goods/addCart',{productId:productId}).then((res) => {
+				axios.post(process.env.API_HOST + '/goods/addCart',{productId:productId}).then((res) => {
 					if(res.status === 200){
 						this.mdShowCart = true;
 						this.$store.commit("updateCartCount",1);

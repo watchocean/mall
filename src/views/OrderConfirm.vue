@@ -143,11 +143,17 @@
 
 </style>
 <script>
-import NavHeader from '@/components/NavHeader'
-import NavFooter from '@/components/NavFooter'
-import NavBread from '@/components/NavBread'
-import Modal from '@/components/Modal'
+//import NavHeader from '@/components/NavHeader'
+//import NavFooter from '@/components/NavFooter'
+//import NavBread from '@/components/NavBread'
+//import Modal from '@/components/Modal'
 import axios from 'axios'
+
+const Modal = () => import('@/components/Modal');
+const NavBread = () => import('@/components/NavBread');
+const NavHeader = () => import('@/components/NavHeader');
+const NavFooter = () => import('@/components/NavFooter');
+
 export default {
     components: {
         NavHeader, NavFooter, NavBread, Modal
@@ -167,7 +173,7 @@ export default {
     },
     methods:{
         init(){
-            axios.get('/users/cartList').then((response) => {
+            axios.get(process.env.API_HOST + '/users/cartList').then((response) => {
                 let res = response.data;
                 this.cartList = res.result;
                 this.cartList.map((item) => {
@@ -179,7 +185,7 @@ export default {
             })
         },
         payment(){
-            axios.post("/users/payMent",{
+            axios.post(process.env.API_HOST + "/users/payMent",{
                 addressId:this.$route.query.addressId,
                 orderTotal:this.orderTotal
             }).then((response) => {

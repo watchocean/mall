@@ -52,11 +52,17 @@
 
 </style>
 <script>
-import NavHeader from '@/components/NavHeader'
-import NavFooter from '@/components/NavFooter'
-import NavBread from '@/components/NavBread'
-import Modal from '@/components/Modal'
+//import NavHeader from '@/components/NavHeader'
+//import NavFooter from '@/components/NavFooter'
+//import NavBread from '@/components/NavBread'
+//import Modal from '@/components/Modal'
 import axios from 'axios'
+
+const Modal = () => import('@/components/Modal');
+const NavBread = () => import('@/components/NavBread');
+const NavHeader = () => import('@/components/NavHeader');
+const NavFooter = () => import('@/components/NavFooter');
+
 export default {
     components: {
         NavHeader, NavFooter, NavBread, Modal
@@ -66,7 +72,7 @@ export default {
         if (!orderId) {
             return;
         } else {
-            axios.get("/users/orderDetail", {
+            axios.get(process.env.API_HOST + "/users/orderDetail", {
                 params:{
                   orderId:orderId
                 }

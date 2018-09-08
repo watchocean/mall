@@ -88,7 +88,7 @@
 					this.errorTip = true;
 					return;
 				}
-				axios.post("/users/login", {
+				axios.post(process.env.API_HOST + "/users/login", {
 					userName: this.userName,
 					userPwd: this.userPwd
 				}).then((response) => {
@@ -104,7 +104,7 @@
 				});
 			},
 			logOut(){
-				axios.post("/users/logout").then((response) => {
+				axios.post(process.env.API_HOST + "/users/logout").then((response) => {
 					let res = response.data;
 					if(res.status == "0") {
 						this.$store.commit("updateUserInfo",'');
@@ -112,7 +112,7 @@
 				});
 			},
 			checkLogin(){
-				axios.get("/users/checkLogin").then((response) => {
+				axios.get(process.env.API_HOST + "/users/checkLogin").then((response) => {
 					let res = response.data;
 					if(res.status == "0"){
 						// this.nickName = res.result;
@@ -123,7 +123,7 @@
 				});
 			},
 			getCartCount(){
-				axios.get("/users/getCartCount").then((response) => {
+				axios.get(process.env.API_HOST + "/users/getCartCount").then((response) => {
 					let res = response.data;
 					this.$store.commit("initCartCount", res.result);
 				});

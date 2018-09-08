@@ -176,10 +176,12 @@ import './../assets/css/checkout.css'
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '@/components/NavBread'
-import Modal from '@/components/Modal'
+//import Modal from '@/components/Modal'
 import axios from 'axios'
 import {currency} from '../util/currency'
 // import { mapGetters, mapActions } from 'vuex'
+const Modal = () => import('@/components/Modal');
+
 export default {
     components: {
         NavHeader, NavFooter, NavBread, Modal
@@ -241,7 +243,7 @@ export default {
                 //    this.modalConfirm = false;
                // }
            // })
-           axios.post("/users/cartDel",{productId:this.delItem.productId}).then((response) => {
+           axios.post(process.env.API_HOST + "/users/cartDel",{productId:this.delItem.productId}).then((response) => {
             let res = response.data;
             if(res.status == "0"){
                 this.modalConfirm = false;
@@ -272,7 +274,7 @@ export default {
                 checked: item.checked
             }
             //this.cartEdit(param);
-            axios.post("/users/cartEdit",param).then((response) => {
+            axios.post(process.env.API_HOST + "/users/cartEdit",param).then((response) => {
                 let res = response.data;
                 let num = 0;
                 if(flag == 'add'){
@@ -289,7 +291,7 @@ export default {
                 item.checked = flag ? '1':'0';
             })
             //this.editCheckAll(flag);
-            axios.post("/users/editCheckAll",{checkAll:flag}).then((response) => {
+            axios.post(process.env.API_HOST + "/users/editCheckAll",{checkAll:flag}).then((response) => {
                 let res = response.data;
                 if(res.status == "0"){
                     console.log("update suc");
@@ -304,7 +306,7 @@ export default {
             }
         },
         init(){
-            axios.get("/users/cartList").then((response) => {
+            axios.get(process.env.API_HOST + "/users/cartList").then((response) => {
                 let res = response.data;
                 this.cartList = res.result;
             });

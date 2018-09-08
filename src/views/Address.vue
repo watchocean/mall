@@ -157,11 +157,16 @@
 </style>
 <script>
 //import { mapGetters, mapActions } from 'vuex'
-import NavHeader from '@/components/NavHeader'
-import NavFooter from '@/components/NavFooter'
-import NavBread from '@/components/NavBread'
-import Modal from '@/components/Modal'
+//import NavHeader from '@/components/NavHeader'
+//import NavFooter from '@/components/NavFooter'
+//import Modal from '@/components/Modal'
 import axios from 'axios'
+
+const Modal = () => import('@/components/Modal');
+const NavBread = () => import('@/components/NavBread');
+const NavHeader = () => import('@/components/NavHeader');
+const NavFooter = () => import('@/components/NavFooter');
+
 export default {
     components: {
         NavHeader, NavFooter, NavBread, Modal
@@ -193,7 +198,7 @@ export default {
     methods:{
        // ...mapActions({getAddressList:'addressList'}),
         init(){
-             axios.get('/users/addressList').then((response) => {
+             axios.get(process.env.API_HOST + '/users/addressList').then((response) => {
                 let res = response.data;
                  if(res.status === '0'){
                      this.addressList = res.result;
@@ -213,7 +218,7 @@ export default {
             }
         },
         setDefault(item){
-            axios.post("/users/setDefault",{addressId:item.addressId}).then((response) =>{
+            axios.post(process.env.API_HOST + "/users/setDefault",{addressId:item.addressId}).then((response) =>{
                 let res = response.data;
                 if(res.status === '0'){
                     this.init();
@@ -228,7 +233,7 @@ export default {
             this.isMdShow = true;
         },
         delAddress(){
-            axios.post("/users/delAddress",{
+            axios.post(process.env.API_HOST + "/users/delAddress",{
                 addressId:this.addressId
             }).then((response) => {
                 let res = response.data;

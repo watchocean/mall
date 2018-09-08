@@ -3,10 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+//此模块无法使用按需加载
 import VueLazyLoad from 'vue-lazyload'
-import infiniteScorll from 'vue-infinite-scroll'
+//import infiniteScorll from 'vue-infinite-scroll'
 import {currency} from './util/currency'
 import Vuex from 'vuex'
+
+//const VueLazyLoad = () => import('vue-lazyload');
+const infiniteScorll = () => import('vue-infinite-scroll');
 
 Vue.config.productionTip = false
 Vue.use(infiniteScorll);
